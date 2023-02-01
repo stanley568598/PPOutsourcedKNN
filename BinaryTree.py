@@ -1,12 +1,5 @@
 import numpy as np
 
-import matplotlib.pyplot as plt
-from matplotlib.pyplot import Circle
-
-# Basic parameter setting
-d_hor = 4   # Node horizontal distance
-d_vec = 8   # nodevertical distance
-radius = 2  # node radius
 
 class Node:
     
@@ -22,7 +15,7 @@ class Node:
     def set_right( self , right_node ) :
         self.right = right_node
 
-
+        
 class BinaryTree:
     
     def __init__( self , root ):

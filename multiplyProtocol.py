@@ -11,7 +11,7 @@ from secret_sharing import generateShares,reconstructSecret
 t , n = 2 , 2
 
 class RandomnessGenerator:
-
+    
     def __init__(self):
         self.a = np.random.randint(10)
         self.b = np.random.randint(10)
@@ -31,7 +31,7 @@ class RandomnessGenerator:
         return res
     
 def multiply( a , b ):
-
+    
     rg = RandomnessGenerator()
     r = rg.forA()
     _r = rg.forB()
@@ -111,3 +111,4 @@ if __name__ == '__main__' :
         
         if( s > h ) :
             print(1)
+        
