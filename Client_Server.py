@@ -15,13 +15,14 @@ from multiplyProtocol import multiply
 from knn import knn_classifier
 from secret_sharing import generateShares,reconstructSecret
 
-from utility import tree
+from utility import tree , decision_Tree , findGroupIndex
 import pandas as pd
-
+from sklearn import tree
 
 q = 997
 ratio = 1/5
 NUM_CLASS = 10
+MINIMUM = 9999999
 
 class Client:
 
@@ -37,9 +38,9 @@ class Client:
             self.share.append( temp )
 
         self.share = np.array( self.share )
-    
+                
     def sent_share( self , i , j ):
-
+    
         if( len ( self.share ) == 0 ):
             return
 
@@ -57,9 +58,9 @@ class Client:
         x = self.share[i][j][0][0]
 
         return y , x
-    
+        
     def compare( self , i , j , server_share ):
-
+    
         x = self.share[i][j][0][1]
         y = server_share[1]
         
@@ -93,7 +94,7 @@ class Server:
         return np.array(share)
     
     def sent_share( self , i , j ):
-
+    
         if( len( self.share ) == 0 ):
             return
         else:
@@ -132,7 +133,7 @@ class Server:
         return np.round( delta , 1 )
     
     def knn( self , client ):
-
+    
         result = []
         for i in range( len( client.data ) ):
 
@@ -169,7 +170,7 @@ class Server:
         return(result)
         
     def  knn_classifier( self , distance ):
-
+    
         result = []
         DAL = {}                                                  # DAL = DistanceAndLabel
 
@@ -236,7 +237,7 @@ class Server:
         return s > h
         
     def Delegate_Method( self , client ):
-
+    
         groups_average , share_gas , labels = delegate( self.data , self.train_label )
 
         """
@@ -263,10 +264,9 @@ class Server:
         result = self.knn( client )
 
         print(result)
-        return result
-                   
-    """
-    def tree_Method( self , client , groups , binaryTree , centerIndex , ss_groups ):
+        return result   
+
+    def tree_Method_SS( self , client , groups , binaryTree , centerIndex , ss_groups ):
         
         # 計算distance
         distance = 0
@@ -354,9 +354,8 @@ class Server:
             result += self.knn_classifier( distance )
 
         return result
-    """
 
-    def tree_Method( self , client , groups , binaryTree ):
+    def tree_Method( self , client , groups , binaryTree , centerIndex , ss_groups ):
 
         center = pd.DataFrame(client.data).mean().to_numpy().squeeze()
 
@@ -398,13 +397,47 @@ class Server:
             ## for data in group:
             ##     l[ data[1] ] += 1
 
+            ## # print( l )
             ## result.append( np.argmax(l) )    # l [] 的 最大值 的 index
         
         return result
 
+    def decisionTree_method( self , client , classifier , leaf_index_dict , groups , d_indices ):
+        result = []
+        for test in client.data:
+            _2dtest = test.reshape( 1 , -1 )          # apply 函數需要輸入 2d array
+            leaf_id = classifier.apply( _2dtest )
+            leaf_id = int( leaf_id )                  # 轉回int
+            d_list = leaf_index_dict[ leaf_id ]
+            
 
-# 使用 Tree，跑 digits 資料
+            # 找出與葉節點內所有代表號中，最近的代表號
+            minimum = MINIMUM
+            d_index = 0
+            for i in d_list:
+                delegate = self.data[i]
+                distance = ( ( test - delegate ) ** 2 ).sum() ** 0.5
+                if(distance < minimum):
+                    minimum = distance
+                    d_index = i
+            
+            index = findGroupIndex( d_index , d_indices )
+            
+            group = groups[index]
+            data = []
+            label = []
+            for d in group:
+                data.append( d[0] )
+                label.append( d[1] )
+            
+            result.append( knn_classifier( data , _2dtest , label , 3 , 10 ) )
+            
+        result = np.array(result).reshape(-1)
 
+        return result
+
+# 使用 Decision Tree，跑 digits 資料
+        
 if __name__ == '__main__':
 
     iris = datasets.load_digits()
@@ -413,30 +446,31 @@ if __name__ == '__main__':
     
     n , t = 2 , 2
 
-    for times in range(5):
+    correct_rate_average = 1
+    knn_correct_rate_average = 1
+    epoch = 1
+
+    for e in range(epoch):
 
         train_data , test_data ,  train_label ,  test_label = train_test_split( iris_data , iris_label , test_size = 0.2 )
 
-        groups , binaryTree , center = tree( train_data , test_data , train_label )
-
-        origin_knn = test_label
-
-
+        origin_knn = knn_classifier( train_data , test_data , train_label , 5 , NUM_CLASS )
+        
         """
-        # 原始knn
-        time1 = time.time()
-
-        result = knn_classifier( train_data , test_data , train_label , 5 , NUM_CLASS )
 
         incorrect = 0
         for i in range( len(result) ):
-            if( origin_knn[i] != test_label[i] ):
+            if( result[i] != origin_knn[i] ):
                 incorrect += 1
-
+                
         print('correct rate : ' , ( len(result) - incorrect ) / len(result) * 100 , '%')
-
+        
+        # 原始knn
+        time1 = time.time()
+        
+        origin_knn = knn_classifier( train_data , test_data , train_label , 5 , NUM_CLASS )
+        
         time2 = time.time()
-
         t1 = time2 - time1
 
         print( '原始 knn，耗時:' , t1 , '秒' )
@@ -444,55 +478,75 @@ if __name__ == '__main__':
         print()
         """
 
-        # Tree
+        
+        # decision_Tree
         time1 = time.time()
 
         client = Client( test_data )
         server = Server( train_data , train_label , 5 )
         
         # result = server.Delegate_Method( client )
-        result = server.tree_Method( client , groups , binaryTree )
+        """ Tree Based
+        groups , binaryTree , centerIndex , ss_groups = tree( train_data , test_data , train_label )
+        result = server.tree_Method( client , groups , binaryTree , centerIndex , ss_groups )
+        """
 
-        # print( origin_knn.tolist() )
-        # print()
-        # print( result )
+        classifier , leaf_index_dict , groups , d_indices = decision_Tree( train_data , train_label )
+        result = server.decisionTree_method( client , classifier , leaf_index_dict , groups , d_indices )
 
         incorrect = 0
         for i in range( len(result) ):
-            if( result[i] != test_label[i] ):
+            if( result[i] != origin_knn[i] ):
                 incorrect += 1
         
         time2 = time.time()
         
         t1 = time2 - time1
-
+        
         print()
 
-        print('correct rate : ' , ( len(result) - incorrect ) / len(result) * 100 , '%')
-
-        print('使用 Tree，耗時 : ' , t1 , '秒')
-
-        print()
-        
-        """
-        train_data,train_label = PreProcessor( train_data , train_label )
-        
-        time1 = time.time()
-        client = Client( test_data )
-        server = Server( train_data , train_label , 5 , 3 )
-        result = server.knn( client )
-        result1 = knn_classifier( train_data , test_data , train_label , 5 , 3 )
+        correct_rate = ( len(result) - incorrect ) / len(result) * 100
+        correct_rate_average = correct_rate_average * correct_rate
         
         incorrect = 0
         for i in range( len(result) ):
-            if( result[i] != result1[i] ):
+            if( test_label[i] != origin_knn[i] ):
                 incorrect += 1
         
         time2 = time.time()
         
-        t2 = time2 - time1
-        print('使用代表號，耗時:' , t2 , '秒')
-        print('節省了:' , ( 1 - t2 / t1 ) * 100 , '%的時間')
+        t1 = time2 - time1
         
-        print('correct rate:' , ( len(result) - incorrect ) / len(result) * 100 , '%')
-        """
+        knn_correct_rate = ( len(result) - incorrect ) / len(result) * 100
+        knn_correct_rate_average = knn_correct_rate_average * knn_correct_rate
+        
+        
+    print( 'correct rate : ' , ( correct_rate_average ** ( 1 / epoch ) , '%' ) )
+    print( 'knn_correct_rate : ' , ( knn_correct_rate_average ** ( 1 / epoch ) ) , '%' )
+    
+        # print('使用 Tree，耗時 : ' , t1 , '秒')
+        
+        # print()
+        
+    """
+    train_data,train_label = PreProcessor( train_data , train_label )
+    
+    time1 = time.time()
+    client = Client( test_data )
+    server = Server( train_data , train_label , 5 , 3 )
+    result = server.knn( client )
+    result1 = knn_classifier( train_data , test_data , train_label , 5 , 3 )
+    
+    incorrect = 0
+    for i in range( len(result) ):
+        if( result[i] != result1[i] ):
+            incorrect += 1
+    
+    time2 = time.time()
+    
+    t2 = time2 - time1
+    print('使用代表號，耗時:' , t2 , '秒')
+    print('節省了:' , ( 1 - t2 / t1 ) * 100 , '%的時間')
+    
+    print('correct rate:' , ( len(result) - incorrect ) / len(result) * 100 , '%')
+    """

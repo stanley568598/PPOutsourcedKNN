@@ -98,7 +98,7 @@ def  knn_classifier( train_data , test_data , train_label , k , Num_class ) :
         result.append( SPL[0][0] )
         
     return result
-
+    
 
 if __name__ == '__main__':
     
@@ -108,7 +108,7 @@ if __name__ == '__main__':
     
     t1 = time.time()
     false = 0
-    
+
     for i in range(1):
         train_data , test_data , train_label , test_label = train_test_split( iris_data , iris_label , test_size = 0.2 , random_state = 0 )
 
@@ -128,7 +128,6 @@ if __name__ == '__main__':
         print( str( correct / len(result) * 100 ) + "%")
 
     t2 = time.time()
-
+    
     t = t2 - t1
     print( "耗時 : " , t )      # 5 分鐘
-    

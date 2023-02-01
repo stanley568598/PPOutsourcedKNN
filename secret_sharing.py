@@ -76,17 +76,19 @@ def genX( n ) :
     x = []
     for i in range(n):
         x.append( 3 + i * 2 )
+
+    # x = [ 3 , 5 , 7 , ... ]
     return x
 
 def generateShares( t , n , secret ) : 
-    
+
     x = genX(n)
 
     # Split secret using SSS into n shares with threshold t 
     cfs = coeff( t , secret ) 
-    shares = [] 
     # print( cfs )
 
+    shares = [] 
     for i in range( 0 , n ) : 
         # r = random.randrange( 1 , field_size ) 
         shares.append( [ x[i] , round( polynom ( x[i] , cfs ) , 1 ) ] ) 
@@ -98,30 +100,45 @@ def generateShares( t , n , secret ) :
 if __name__ == '__main__': 
       
     # (t,n) sharing scheme 
-    a = 0
-    b = 0
     t , n = 2 , 2
+
+    # Phase I : Generation of shares 
     secret = 55
     print( 'Original Secret:' , secret ) 
-   
-    # Phase I : Generation of shares 
-    shares = generateShares( t , n , secret ) 
-    a += shares[0][1]
-    b += shares[1][1]
-    print( 'Shares:' , *shares )
+    shares_1 = generateShares( t , n , secret ) 
+    print( 'Shares:' , *shares_1 )
+    print( "Reconstructed secret:" , reconstructSecret( random.sample( shares_1 , t ) ) ) 
+    # Phase II : Secret Reconstruction，Picking t shares randomly for reconstruction。
 
     secret = 105
     print()
     print( 'Original Secret:' , secret ) 
-    shares = generateShares( t , n , secret ) 
+    shares_2 = generateShares( t , n , secret ) 
+    print( 'Shares:' , *shares_2 )
+    print( "Reconstructed secret:" , reconstructSecret( random.sample( shares_2 , t ) ) ) 
+
+    shares = shares_1 + shares_2
+    print()
     print( 'Shares:' , *shares )
 
-    a += shares[0][1]
-    b += shares[1][1]
+    # Phase III : Combining shares with 2,2
+    a_1 = shares_1[0][0]    
+    b_1 = shares_2[1][0]   
 
-    # Phase II : Secret Reconstruction 
-    # Picking t shares randomly for reconstruction 
-    pool = random.sample( shares , t ) 
-    print( '\nCombining shares: ' , *pool ) 
-    print( "Reconstructed secret:" , reconstructSecret([ [ 3 , a ] , [ 5 , b ] ]) ) 
+    a_2 = 0
+    a_2 += shares_1[0][1]
+    a_2 += shares_2[0][1]
 
+    b_2 = 0
+    b_2 += shares_1[1][1]
+    b_2 += shares_2[1][1]
+
+    combine = [ [ a_1 , a_2 ] , [ b_1 , b_2 ] ]
+
+    print()
+    print( 'Combining shares:' , *combine )
+    print( "Reconstructed secret:" , reconstructSecret( combine ) ) 
+
+    # print( "Reconstructed secret:" , reconstructSecret([ [ 3 , a ] , [ 5 , b ] ]) ) 
+
+    print()
