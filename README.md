@@ -16,9 +16,9 @@
 
 ### 實驗結果 資料收集
 
-Client_Server.py 運行順序：_main_ -> run_code() -> run_epoch()。
+Client_Server.py 運行順序：__ main __ -> run_code() -> run_epoch()。
 
-1. _main_：本專案提供下列資料集，將依序由左至右運行，可只保留所需的資料集。
+1. __ main __：本專案提供下列資料集，將依序由左至右運行，可只保留所需的資料集。
    
    - dataName = ['iris' , 'wine' , 'breast_cancer' , 'abalone' , 'digits' , 'nursery' , 'mushroom' , 'Chess (King-Rook vs. King)']
 
@@ -28,8 +28,8 @@ Client_Server.py 運行順序：_main_ -> run_code() -> run_epoch()。
       - SS_knn：naive construction，直接以 secret sharing 做 kNN 的方案。【 測量：正確性、耗時 】
       - knn：一般 kNN (無安全性)，用來評估 正確性。
       - dct：一般 DCT (無安全性)，用來評估 正確性。
-      - dct_knn：[DCT version]，完整資料DCT，SS_knn based on DCT分類器，(無 查詢資料、DCT分類器 安全性；可能有不存在代表號的leaf -> 用原本leaf predict label 作為結果)。【 測量：建構DCT + 分群資料 SS_knn 正確率、耗時 => <建構DCT的預處理時間(通常只花費一次)> 】
-      - partition_dct_knn：分群資料DCT，SS_knn based on DCT分類器，(無 查詢資料、DCT分類器 安全性)。【 測量：分群資料 建構DCT + 分群資料 SS_knn 正確率、耗時 => <建構DCT的預處理時間(通常只花費一次)> 】
+      - dct_knn：[DCT version]，完整資料DCT，SS_knn based on DCT分類器，(無 查詢資料、DCT分類器 安全性；可能有不存在代表號的leaf -> 用原本leaf predict label 作為結果)。【 測量：建構DCT + 分群資料 SS_knn 正確率、耗時 => 建構DCT的預處理時間(通常只花費一次) 】
+      - partition_dct_knn：分群資料DCT，SS_knn based on DCT分類器，(無 查詢資料、DCT分類器 安全性)。【 測量：分群資料 建構DCT + 分群資料 SS_knn 正確率、耗時 => 建構DCT的預處理時間(通常只花費一次) 】
       - partition_dct_SS_knn：[Our scheme]，分群資料DCT，SS_knn based on DCT索引 (dct secure search)。【 測量：分群資料 DCT索引 + 分群資料 SS_knn 正確率、耗時】
 
     - epoch=2，設定總輪數，計算實驗結果的平均狀況。
