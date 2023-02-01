@@ -1,0 +1,55 @@
+
+====
+
+report：SS_knn (筆電，epoch=1)
+
+====
+
+資料集:iris
+Instances: 150 , Attributes: 4 , Class: 3
+
+Epoch:  1
+Mode: SS_knn  正確率  93.33333333333333 %  耗時  2.1374425888061523
+
+====
+
+資料集:wine
+Instances: 178 , Attributes: 13 , Class: 3
+
+Epoch:  1
+Mode: SS_knn  正確率  80.55555555555556 %  耗時  9.424227476119995
+
+====
+
+資料集:breast_cancer
+Instances: 569 , Attributes: 30 , Class: 2
+
+Epoch:  1
+Mode: SS_knn  正確率  91.22807017543859 %  耗時  322.66085290908813
+
+====
+
+資料集:digits
+Instances: 1797 , Attributes: 64 , Class: 10
+
+Epoch:  1
+Mode: SS_knn  正確率  98.61111111111111 %  耗時  6597.889562129974
+
+====
+
+資料集:mushroom
+Instances: 8124 , Attributes: 22 , Class: 2
+
+Epoch:  1
+Mode: SS_knn  正確率  99.87692307692308 %  耗時  35533.77419066429
+
+====
+
+資料集:nursery
+Instances: 12960 , Attributes: 8 , Class: 5
+
+Epoch:  1
+Mode: SS_knn  正確率  98.6496913580247 %  耗時  35304.33420395851
+
+====
+

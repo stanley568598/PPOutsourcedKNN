@@ -1,0 +1,59 @@
+
+====
+
+# naive construction (knn by secret sharing) 參考結果 (桌機，epoch=1)
+
+## nursery -- knn by secret sharing 執行時間：6 小時。 => (可接受)
+
+## Chess (King-Rook vs. King) -- knn by secret sharing 執行時間：21 小時。 => (捨棄)
+
+====
+
+資料集:iris
+Instances: 150 , Attributes: 4 , Class: 3
+Mode: SS_knn  正確率  96.66666666666667 %  耗時  1.9050323963165283
+
+====
+
+資料集:wine
+Instances: 178 , Attributes: 13 , Class: 3
+Mode: SS_knn  正確率  72.22222222222221 %  耗時  8.733592987060547
+
+====
+
+資料集:breast_cancer
+Instances: 569 , Attributes: 30 , Class: 2
+Mode: SS_knn  正確率  93.85964912280701 %  耗時  192.6196129322052
+
+====
+
+資料集:digits
+Instances: 1797 , Attributes: 64 , Class: 10
+Mode: SS_knn  正確率  98.88888888888889 %  耗時  3975.5197508335114
+
+====
+
+資料集:mushroom
+Instances: 8124 , Attributes: 22 , Class: 2
+Mode: SS_knn  正確率  99.87692307692308 %  耗時  23257.484790802002
+
+====
+
+資料集:nursery
+Instances: 12960 , Attributes: 8 , Class: 5
+Mode: SS_knn  正確率  98.4182098765432 %  耗時  21459.609189510345
+
+====
+
+資料集:abalone
+Instances: 4177 , Attributes: 8 , Class: 29
+Mode: SS_knn  正確率  24.641148325358852 %  耗時  2672.2548685073853
+
+====
+
+資料集:Chess (King-Rook vs. King)
+Instances: 28056 , Attributes: 6 , Class: 18
+Mode: SS_knn  正確率  78.79543834640057 %  耗時  76317.59740281105
+
+====
+

@@ -1,0 +1,71 @@
+
+====
+
+# 無 secret sharing 的 KNN
+
+====
+
+資料集:iris
+Instances: 150 , Attributes: 4 , Class: 3
+Average of epoch =  100
+DCT: 正確率  0.9466666666666673  耗時  0.000462956428527832
+KNN: 正確率  0.9650000000000004  耗時  0.0015617036819458008
+
+====
+
+資料集:wine
+Instances: 178 , Attributes: 13 , Class: 3
+Average of epoch =  100
+DCT: 正確率  0.9074999999999999  耗時  0.001057751178741455
+KNN: 正確率  0.6833333333333329  耗時  0.002136740684509277
+
+====
+
+資料集:breast_cancer
+Instances: 569 , Attributes: 30 , Class: 2
+Average of epoch =  100
+DCT: 正確率  0.9254385964912268  耗時  0.005121254920959472
+KNN: 正確率  0.928596491228069  耗時  0.0038768482208251954
+
+====
+
+資料集:digits
+Instances: 1797 , Attributes: 64 , Class: 10
+Average of epoch =  100
+DCT: 正確率  0.8503888888888889  耗時  0.015186755657196046
+KNN: 正確率  0.9853611111111116  耗時  0.018360390663146972
+
+====
+
+資料集:abalone
+Instances: 4177 , Attributes: 8 , Class: 29
+Average of epoch =  100
+DCT: 正確率  0.1988277511961723  耗時  0.02403900384902954
+KNN: 正確率  0.23331339712918633  耗時  0.07358387708663941
+
+====
+
+資料集:mushroom
+Instances: 8124 , Attributes: 22 , Class: 2
+Average of epoch =  100
+DCT: 正確率  1.0  耗時  0.006054022312164307
+KNN: 正確率  0.9996923076923074  耗時  0.24399113416671753
+
+====
+
+資料集:nursery
+Instances: 12960 , Attributes: 8 , Class: 5
+Average of epoch =  100
+DCT: 正確率  0.9975578703703707  耗時  0.007425565719604493
+KNN: 正確率  0.9680439814814811  耗時  0.6159438443183899
+
+====
+
+資料集:Chess (King-Rook vs. King)
+Instances: 28056 , Attributes: 6 , Class: 18
+Average of epoch =  100
+DCT: 正確率  0.8415930149679256  耗時  0.03891507387161255
+KNN: 正確率  0.7419885958660014  耗時  2.699122972488403
+
+====
+
