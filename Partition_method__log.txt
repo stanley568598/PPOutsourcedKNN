@@ -1,0 +1,64 @@
+
+
+====
+
+資料集:iris
+Instances: 150 , Attributes: 4 , Class: 3
+NUM_DELEGATE: 50  RADIUS  0.75
+
+Epoch:  10
+Leaf node number: 3.0 , Total Delegates in Leaf nodes: 50.0 , Mean Delegates in a Leaf node: 16.699999999999996
+Total Data in Groups: 985.9 , Mean Data in Leaf: 328.64 , Mean Data in Delegate: 19.7
+
+====
+
+資料集:wine
+Instances: 178 , Attributes: 13 , Class: 3
+NUM_DELEGATE: 100  RADIUS  50
+
+Epoch:  10
+Leaf node number: 5.3 , Total Delegates in Leaf nodes: 100.0 , Mean Delegates in a Leaf node: 20.259999999999998
+Total Data in Groups: 1426.9 , Mean Data in Leaf: 290.82 , Mean Data in Delegate: 14.280000000000001
+
+====
+
+資料集:breast_cancer
+Instances: 569 , Attributes: 30 , Class: 2
+NUM_DELEGATE: 300  RADIUS  50
+
+Epoch:  10
+Leaf node number: 7.6 , Total Delegates in Leaf nodes: 300.0 , Mean Delegates in a Leaf node: 40.16
+Total Data in Groups: 6012.0 , Mean Data in Leaf: 806.9999999999999 , Mean Data in Delegate: 20.050000000000004
+
+====
+
+資料集:digits
+Instances: 1797 , Attributes: 64 , Class: 10
+NUM_DELEGATE: 500  RADIUS  35
+
+Epoch:  10
+Leaf node number: 29.4 , Total Delegates in Leaf nodes: 500.0 , Mean Delegates in a Leaf node: 17.159999999999997
+Total Data in Groups: 45080.9 , Mean Data in Leaf: 1548.77 , Mean Data in Delegate: 90.15
+
+====
+
+資料集:mushroom
+Instances: 8124 , Attributes: 22 , Class: 2
+NUM_DELEGATE: 1000  RADIUS  2.5
+
+Epoch:  10
+Leaf node number: 12.7 , Total Delegates in Leaf nodes: 1000.0 , Mean Delegates in a Leaf node: 81.07
+Total Data in Groups: 39469.2 , Mean Data in Leaf: 3197.91 , Mean Data in Delegate: 39.480000000000004
+
+====
+
+資料集:nursery
+Instances: 12960 , Attributes: 8 , Class: 5
+NUM_DELEGATE: 1250  RADIUS  2
+
+Epoch:  10
+Leaf node number: 66.3 , Total Delegates in Leaf nodes: 1250.0 , Mean Delegates in a Leaf node: 18.939999999999998
+Total Data in Groups: 206777.7 , Mean Data in Leaf: 3133.9 , Mean Data in Delegate: 165.42
+
+====
+

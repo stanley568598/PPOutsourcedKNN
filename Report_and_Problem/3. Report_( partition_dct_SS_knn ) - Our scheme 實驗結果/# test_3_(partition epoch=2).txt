@@ -1,0 +1,67 @@
+
+====
+
+# test：Partition_method 分群狀況 小規模測試
+
+====
+
+資料集:iris
+Instances: 150 , Attributes: 4 , Class: 3
+NUM_DELEGATE: 50  RADIUS  0.75
+
+Epoch:  2
+Leaf node number: 4.0 , Total Delegates in Leaf nodes: 50.0 , Mean Delegates in a Leaf node: 12.5
+Total Data in Groups: 876.0 , Mean Data in Leaf: 219.0 , Mean Data in Delegate: 17.55
+
+====
+
+資料集:wine
+Instances: 178 , Attributes: 13 , Class: 3
+NUM_DELEGATE: 100  RADIUS  50
+
+Epoch:  2
+Leaf node number: 5.0 , Total Delegates in Leaf nodes: 100.0 , Mean Delegates in a Leaf node: 20.85
+Total Data in Groups: 1486.5 , Mean Data in Leaf: 308.25 , Mean Data in Delegate: 14.85
+
+====
+
+資料集:breast_cancer
+Instances: 569 , Attributes: 30 , Class: 2
+NUM_DELEGATE: 300  RADIUS  50
+
+Epoch:  2
+Leaf node number: 7.0 , Total Delegates in Leaf nodes: 300.0 , Mean Delegates in a Leaf node: 42.9
+Total Data in Groups: 6093.0 , Mean Data in Leaf: 870.45 , Mean Data in Delegate: 20.35
+
+====
+
+資料集:digits
+Instances: 1797 , Attributes: 64 , Class: 10
+NUM_DELEGATE: 500  RADIUS  35
+
+Epoch:  2
+Leaf node number: 28.0 , Total Delegates in Leaf nodes: 500.0 , Mean Delegates in a Leaf node: 17.85
+Total Data in Groups: 45941.0 , Mean Data in Leaf: 1641.5 , Mean Data in Delegate: 91.9
+
+====
+
+資料集:mushroom
+Instances: 8124 , Attributes: 22 , Class: 2
+NUM_DELEGATE: 1000  RADIUS  2.5
+
+Epoch:  2
+Leaf node number: 11.5 , Total Delegates in Leaf nodes: 1000.0 , Mean Delegates in a Leaf node: 88.45
+Total Data in Groups: 38949.5 , Mean Data in Leaf: 3449.6499999999996 , Mean Data in Delegate: 38.95
+
+====
+
+資料集:nursery
+Instances: 12960 , Attributes: 8 , Class: 5
+NUM_DELEGATE: 1250  RADIUS  2
+
+Epoch:  2
+Leaf node number: 58.5 , Total Delegates in Leaf nodes: 1250.0 , Mean Delegates in a Leaf node: 21.4
+Total Data in Groups: 206839.5 , Mean Data in Leaf: 3541.4 , Mean Data in Delegate: 165.5
+
+====
+
